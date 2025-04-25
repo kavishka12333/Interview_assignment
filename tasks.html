@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tasks</title>
+  <link rel="stylesheet" href="tasks.css" />
+</head>
+<body>
+  <div class="browser-header">
+    <span class="dot red"></span>
+    <span class="dot yellow"></span>
+    <span class="dot green"></span>
+  </div>
+
+  <div class="task-header">
+    <a href="dashboard.html">
+      <img src="BlackArrow.png" alt="back to dashboard">
+    </a>
+    <h1>Tasks</h1>
+    <a href="add-task.html">
+      <button class="cancel-btn">+</button>
+    </a>
+  </div>
+
+  <div class="content-wrapper">
+    <div class="task-card">
+      <div class="tabs">
+        <button class="tab active">All</button>
+        <a href="completed-tasks.html"><button class="tab">Completed</button></a>
+
+        <div class="dropdown">
+          <span class="dots" id="dotsMenu">&#8942;</span>
+          <div class="dropdown-menu" id="dropdownMenu">
+            <a href="search.html"><button onclick="alert('Search clicked')">Search</button></a>
+            <button onclick="alert('Edit clicked')">Edit</button>
+            <button onclick="alert('Delete clicked')">Delete</button>
+          </div>
+        </div>
+      </div>
+
+      <h2 class="section-title">Today</h2>
+      <div class="task-list" id="taskList">
+        <!-- Tasks will appear here -->
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const dotsMenu = document.getElementById('dotsMenu');
+    const dropdownMenu = document.getElementById('dropdownMenu');
+
+    dotsMenu.addEventListener('click', () => {
+      dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!dotsMenu.contains(e.target) && !dropdownMenu.contains(e.target)) {
+        dropdownMenu.style.display = 'none';
+      }
+    });
+
+    const taskList = document.getElementById('taskList');
+    let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+
+    function saveTasks(updatedTasks) {
+      localStorage.setItem('tasks', JSON.stringify(updatedTasks));
+    }
+
+    function renderTasks() {
+      taskList.innerHTML = '';
+      const today = new Date().toISOString().slice(0, 10);
+
+      tasks.forEach((task, index) => {
+        const taskDate = task.dueDate.slice(0, 10);
+        if (task.status !== 'Completed' && taskDate >= today) {
+          const div = document.createElement('div');
+          div.className = 'task-item';
+          div.innerHTML = `
+            <input type="checkbox" id="checkbox-${index}" />
+            <label for="checkbox-${index}">
+              <strong>${task.name}</strong> — ${task.description}<br>
+              <small>Due: ${new Date(task.dueDate).toLocaleString()} | ${task.priority}, ${task.status}</small>
+            </label>
+          `;
+          const checkbox = div.querySelector('input');
+          checkbox.addEventListener('change', () => {
+            if (checkbox.checked) {
+              tasks[index].status = 'Completed';
+              saveTasks(tasks);
+              renderTasks(); // Refresh task list
+            }
+          });
+          taskList.appendChild(div);
+        }
+      });
+    }
+
+    renderTasks();
+  </script>
+</body>
+</html>

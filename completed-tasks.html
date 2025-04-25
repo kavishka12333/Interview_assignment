@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Completed Tasks</title>
+  <link rel="stylesheet" href="completed-tasks.css" />
+</head>
+<body>
+  <div class="browser-header">
+    <span class="dot red"></span>
+    <span class="dot yellow"></span>
+    <span class="dot green"></span>
+  </div>
+
+  <div class="task-header">
+    <a href="tasks.html">
+      <img src="BlackArrow.png" alt="back to dashboard">
+    </a>
+    <h1>Completed Tasks</h1>
+    <a href="add-task.html">
+      <button class="cancel-btn">+</button>
+    </a>
+  </div>
+
+  <div class="content-wrapper">
+    <div class="task-card">
+      <h2 class="section-title">Completed</h2>
+      <div class="task-list" id="completedTaskList">
+        <!-- Completed tasks will be inserted here -->
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const completedTaskList = document.getElementById('completedTaskList');
+    const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+
+    const completedTasks = tasks.filter(task => task.status === 'Completed');
+
+    completedTasks.forEach(task => {
+      const div = document.createElement('div');
+      div.className = 'task-item';
+      div.innerHTML = `
+        <input type="checkbox" checked disabled />
+        <span><strong>${task.name}</strong> — ${task.description} <br>
+        <small>Due: ${new Date(task.dueDate).toLocaleString()} | ${task.priority}, ${task.status}</small></span>
+      `;
+      completedTaskList.appendChild(div);
+    });
+  </script>
+</body>
+</html>

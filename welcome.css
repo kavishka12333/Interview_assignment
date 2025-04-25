@@ -1,0 +1,78 @@
+/* Reset */
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: 'Roboto', sans-serif;
+    background-color: #000;
+  }
+  
+  /* Main container fills the screen */
+  .app-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background-color: #111;
+  }
+  
+  /* Fake browser header */
+  .browser-header {
+    background-color: #222;
+    padding: 10px 12px;
+    display: flex;
+    gap: 8px;
+  }
+  
+  /* Browser control dots */
+  .dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  .red { background-color: #ff5f57; }
+  .yellow { background-color: #ffbd2e; }
+  .green { background-color: #28c840; }
+  
+  /* Main content area */
+  .content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+    background-color: #000;
+    text-align: center;
+  }
+  
+  .hero-image {
+    max-width: 600px;
+    width: 100%;
+    border-radius: 10px;
+    margin-bottom: 30px;
+  }
+  
+  h1 {
+    font-size: 3em;
+    color: #fff;
+    margin-bottom: 30px;
+    line-height: 1.3;
+  }
+  
+  .get-started {
+    background-color: #00aaff;
+    color: white;
+    border: none;
+    padding: 14px 30px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  .get-started:hover {
+    background-color: #0376a8;
+  }
+  

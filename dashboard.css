@@ -1,0 +1,46 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body, html {
+    height: 100%;
+    font-family: 'Roboto', sans-serif;
+    background-color: #f9f9f9;
+  }
+  
+  /* App container for full height layout */
+  .app-container {
+    background-color: #fff;
+  }
+  
+  /* Browser-style header */
+  .browser-header {
+    padding: 10px 12px;
+  }
+  
+  .dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  .red { background-color: #ff5f57; }
+  .yellow { background-color: #ffbd2e; }
+  .green { background-color: #28c840; }
+  
+  /* App header with arrow and title */
+  .app-header img {
+    cursor: pointer;
+  }
+  
+  /* Hero image */
+  .hero-image {
+    max-width: 1000px;
+    width: 60%;
+    margin-top: -120px;
+    margin-left: 100px;
+  }
+  

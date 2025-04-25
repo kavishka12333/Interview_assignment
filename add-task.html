@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Add Task</title>
+  <link rel="stylesheet" href="add-task.css" />
+</head>
+<body>
+  <div class="browser-header">
+    <span class="dot red"></span>
+    <span class="dot yellow"></span>
+    <span class="dot green"></span>
+  </div>
+
+  <div class="top-bar">
+    <a href="dashboard.html">
+      <img src="BlackArrow.png" alt="back to dashboard">
+    </a>
+    <h2>Add Task</h2>
+    <button class="cancel-btn">Cancel</button>
+  </div>
+
+  <div class="app-container">
+    <div class="form">
+      <label>Task Name</label>
+      <input type="text" id="taskName" placeholder="Enter task name" />
+
+      <label>Description</label>
+      <input type="text" id="description" placeholder="Enter description" />
+
+      <label>Due Date</label>
+      <input type="datetime-local" id="dueDate" />
+
+      <div class="row">
+        <div class="column">
+          <label>Priority</label>
+          <select id="priority">
+            <option>Select</option>
+            <option>High</option>
+            <option>Medium</option>
+            <option>Low</option>
+          </select>
+        </div>
+        <div class="column">
+          <label>Status</label>
+          <select id="status">
+            <option>Select</option>
+            <option>Pending</option>
+            <option>In Progress</option>
+            <option>Completed</option>
+          </select>
+        </div>
+      </div>
+
+      <button class="save-btn" onclick="saveTask()">Save</button>
+    </div>
+  </div>
+
+  <script>
+    document.querySelector('.cancel-btn').addEventListener('click', () => {
+      document.querySelectorAll('input').forEach(i => i.value = '');
+      document.querySelectorAll('select').forEach(s => s.selectedIndex = 0);
+    });
+
+    function saveTask() {
+      const task = {
+        name: document.getElementById('taskName').value,
+        description: document.getElementById('description').value,
+        dueDate: document.getElementById('dueDate').value,
+        priority: document.getElementById('priority').value,
+        status: document.getElementById('status').value
+      };
+
+      let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+      tasks.push(task);
+      localStorage.setItem('tasks', JSON.stringify(tasks));
+      window.location.href = 'tasks.html';
+    }
+  </script>
+</body>
+</html>
